@@ -30,8 +30,4 @@ mod tests {
         status_code = throttler.throttle();
         assert_eq!(status_code, StatusCode::Throttled);
     }
-
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
 }
