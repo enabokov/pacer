@@ -44,7 +44,7 @@ impl<'a> Throttle for Throttler {
                 .as_secs();
         }
 
-        if past_time_in_secs > self.options.period_seconds {
+        if past_time_in_secs >= self.options.period_seconds {
             self._call_count = 0;
             self._since_time = SystemTime::now();
             println!("Unthrottled!");
