@@ -2,7 +2,7 @@ pub mod throttler;
 
 #[cfg(test)]
 mod tests {
-    use super::throttler::{StatusCode, Throttle, ThrottleOptions, Throttler};
+    use super::throttler::{StatusCode, ThrottleOptions, Throttler};
 
     #[test]
     fn check_throttle_options_creation() {

@@ -5,23 +5,6 @@ pub struct ThrottleOptions {
     pub period_seconds: u64,
 }
 
-pub struct Throttler {
-    options: &'static ThrottleOptions,
-
-    _call_count: u16,
-    _since_time: SystemTime,
-}
-
-impl Throttler {
-    pub fn new(options: &'static ThrottleOptions) -> Throttler {
-        Throttler {
-            _call_count: 0 as u16,
-            _since_time: SystemTime::now(),
-            options: options,
-        }
-    }
-}
-
 #[derive(PartialEq, Debug)]
 pub enum StatusCode {
     Ok,
@@ -29,12 +12,23 @@ pub enum StatusCode {
     Error,
 }
 
-pub trait Throttle {
-    fn throttle(&mut self) -> StatusCode;
+pub struct Throttler<'a> {
+    options: &'a ThrottleOptions,
+
+    _call_count: u16,
+    _since_time: SystemTime,
 }
 
-impl<'a> Throttle for Throttler {
-    fn throttle(&mut self) -> StatusCode {
+impl<'a> Throttler<'a> {
+    pub fn new(options: &'a ThrottleOptions) -> Throttler {
+        Throttler {
+            _call_count: 0 as u16,
+            _since_time: SystemTime::now(),
+            options: options,
+        }
+    }
+
+    pub fn throttle(&mut self) -> StatusCode {
         let past_time_in_secs: u64;
         {
             let current_time = SystemTime::now();
