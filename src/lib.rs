@@ -8,17 +8,17 @@ mod tests {
     fn check_throttle_options_creation() {
         //! create Throttle which allows 1 request within 5 seconds
         let options = ThrottleOptions {
-            max_num_calls: 1,
+            max_call_count: 1,
             period_seconds: 5,
         };
-        assert_eq!(options.max_num_calls, 1);
+        assert_eq!(options.max_call_count, 1);
         assert_eq!(options.period_seconds, 5);
     }
 
     #[test]
     fn check_throttle_work() {
         let mut throttler = Throttler::new(&ThrottleOptions {
-            max_num_calls: 2,
+            max_call_count: 2,
             period_seconds: 5,
         });
 

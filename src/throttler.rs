@@ -1,7 +1,7 @@
 use std::time::SystemTime;
 
 pub struct ThrottleOptions {
-    pub max_num_calls: u16,
+    pub max_call_count: u16,
     pub period_seconds: u64,
 }
 
@@ -22,7 +22,7 @@ pub struct Throttler<'a> {
 impl<'a> Throttler<'a> {
     pub fn new(options: &'a ThrottleOptions) -> Throttler {
         Throttler {
-            _call_count: 0 as u16,
+            _call_count: 0,
             _since_time: SystemTime::now(),
             options: options,
         }
@@ -45,7 +45,7 @@ impl<'a> Throttler<'a> {
             return StatusCode::Ok;
         }
 
-        if self._call_count >= self.options.max_num_calls {
+        if self._call_count >= self.options.max_call_count {
             println!("Throttled!");
             return StatusCode::Throttled;
         }
