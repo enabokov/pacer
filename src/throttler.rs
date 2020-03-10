@@ -22,6 +22,7 @@ impl Throttler {
     }
 }
 
+#[derive(PartialEq, Debug)]
 pub enum StatusCode {
     Ok,
     Throttled,
