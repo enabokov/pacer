@@ -16,11 +16,12 @@ mod tests {
     }
 
     #[test]
-    fn check_throttle_works() {
+    fn check_throttle_work() {
         let mut throttler = Throttler::new(&ThrottleOptions {
             max_num_calls: 2,
             period_seconds: 5,
         });
+
         let mut status_code: StatusCode = throttler.throttle();
         assert_eq!(status_code, StatusCode::Ok);
 
@@ -29,5 +30,10 @@ mod tests {
 
         status_code = throttler.throttle();
         assert_eq!(status_code, StatusCode::Throttled);
+
+        std::thread::sleep(std::time::Duration::from_secs(5));
+
+        status_code = throttler.throttle();
+        assert_eq!(status_code, StatusCode::Ok);
     }
 }
