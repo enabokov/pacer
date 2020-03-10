@@ -6,17 +6,18 @@ pub struct ThrottleOptions {
 }
 
 pub struct Throttler {
-    _call_times: u16,
-    _since_time: SystemTime,
     options: &'static ThrottleOptions,
+
+    _call_count: u16,
+    _since_time: SystemTime,
 }
 
 impl Throttler {
-    pub fn new(t: &'static ThrottleOptions) -> Throttler {
+    pub fn new(options: &'static ThrottleOptions) -> Throttler {
         Throttler {
-            _call_times: 0 as u16,
+            _call_count: 0 as u16,
             _since_time: SystemTime::now(),
-            options: t,
+            options: options,
         }
     }
 }
@@ -43,18 +44,19 @@ impl<'a> Throttle for Throttler {
         }
 
         if past_time_in_secs > self.options.period_seconds {
-            self._call_times = 0;
+            self._call_count = 0;
             self._since_time = SystemTime::now();
+            println!("Unthrottled!");
             return StatusCode::Ok;
         }
 
-        if self._call_times >= self.options.max_num_calls {
+        if self._call_count >= self.options.max_num_calls {
             println!("Throttled!");
             return StatusCode::Throttled;
-        } 
+        }
 
-        self._call_times += 1;
-        println!("Current call {}", self._call_times);
+        self._call_count += 1;
+        println!("Call count: {}", self._call_count);
         return StatusCode::Ok;
     }
 }

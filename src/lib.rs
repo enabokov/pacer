@@ -1,4 +1,4 @@
-pub mod adjust;
+pub mod throttler;
 
 // #[cfg(test)]
 // mod tests {
