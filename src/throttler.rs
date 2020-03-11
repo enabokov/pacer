@@ -37,7 +37,7 @@ pub struct ThrottleOptions {
 }
 
 /// The `StatusCode` enum.
-/// 
+///
 /// Used to return status of the throttle function.
 #[derive(PartialEq, Debug)]
 pub enum StatusCode {
@@ -52,12 +52,12 @@ pub enum StatusCode {
 }
 
 /// The `Throttler` struct.
-/// 
+///
 /// The main struct that is used to enable throttling.
 /// It implements 2 methods:
 /// - new
 /// - throttle
-/// 
+///
 pub struct Throttler<'a> {
     /// Each Throttler has options to set.
     options: &'a ThrottleOptions,
