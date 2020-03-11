@@ -49,15 +49,15 @@ pub enum StatusCode {
 
 /// The `Debouncer` struct.
 ///
-/// The main struct that is used to enable throttling.
+/// The main struct that is used to enable debouncing.
 /// It implements 2 methods:
 /// - new
-/// - throttle
+/// - debounce
 ///
 pub struct Debouncer<'a> {
-    /// Each Throttler has options to set.
+    /// Each Debouncer has options to set.
     options: &'a DebounceOptions,
-    /// Since the time a last call was throttled
+    /// Since the time a last call was debounced
     _last_request: SystemTime,
 }
 
